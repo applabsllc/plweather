@@ -1,9 +1,49 @@
-<html>
-<head>
-	<script src="js/index.js"></script>
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Search for weather forecasts in your area or around the world">
+	<meta name="title" content="PL Weather Project">
+	<meta name="author" content="applabsllc">
+	<meta name="publisher" content="applabsllc">
+	<meta name="copyright" content="applabsllc">
+	
+	<meta name="abstract" content="Search for weather forecasts in your area or around the world">
+	<meta http-equiv="content-language" content="en-US">
+	
+	<meta name="robots" content="index,follow">	
+	<meta name="keywords" lang="en-us" content="weather, forecast, search">
+	<meta property="og:title" content="PL Weather Project">
+	<meta property="og:type" content="app">
+	<meta property="og:url" content="http://">
+	<meta property="og:site_name" content="Pl Weather Project">
+	<meta property="og:description" content="Search for weather forecasts in your area or around the world">
+	
+	<meta name="theme-color" content="#479951">
+	<meta name="msapplication-navbutton-color" content="#479951">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#479951">
+	
+    <title>PL Weather Project</title>
+	<script src="../js/index.js"></script>
+	<link href="../css/style.css" rel="stylesheet" />
 </head>
 <body>
-	Working
+	<div class="mainContainer">
+		<div class="container searchContainer">
+			<input type="text" class="searchbar" id="searchbar" placeholder="Search City..." onkeyup="">
+		</div>
+		<div class="container resultContainer" id="resultContainer">
+			<div class="resultButton">Kansas City</div>
+		</div>
+		<div class="container forecastContainer" id="forecastContainer">
+			<div class="card">Monday</div>
+			<div class="card">Tuesday</div>
+			<div class="card">Wednesday</div>
+			<div class="card">Thursday</div>
+			<div class="card">Friday</div>
+		</div>
+	</div>
 </body>
 </html>
 
