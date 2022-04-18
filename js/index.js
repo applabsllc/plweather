@@ -147,7 +147,7 @@ const buildForecast = (list) => {
 		let currentDayOfWeek = daysOfWeek[d.getDay()];//get current num for day [0 Sun -> 6 Sat]
 		
 		//build date
-		let currentDate = d.getDate()+' '+(d.getMonth() + 1)+' '+d.getFullYear();
+		let currentDate = d.getDate()+'/'+(d.getMonth() + 1)+'/'+d.getFullYear();
 		
 		//temperature
 		let temp = day.temp.day;
@@ -156,19 +156,29 @@ const buildForecast = (list) => {
 		let weatherState = day.weather[0] ? day.weather[0].main : "N/A";
 		
 		//wind data
-		let windInfo = 'Wind Speed: ' +day.wind_speed+ 'mph @ ' + windDirections(day.wind_deg);
+		let windInfo = 'Wind: ' +windDirections(day.wind_deg)+ ' '+ parseInt(day.wind_speed) + 'mph ' ;
 		
 		//icon
 		let weatherIcon = day.weather[0] ? 'http://openweathermap.org/img/wn/'+day.weather[0].icon+'@2x.png' : "N/A";
 		
 		html += `
 		<div class='card'>
-			${currentDayOfWeek}
-			${currentDate}
-			${temp}
-			${weatherState}
-			${windInfo}
-			<img src='${weatherIcon}' class='weatherIcon'>
+			<div class='dateWrapper'>
+				<div class='dayHolder'>${currentDayOfWeek}</div>
+				<div class='dateHolder'>${currentDate}</div>
+			</div>
+			<div class='tempWrapper'>
+			${temp}&deg; 
+			</div>
+			<div class='weatherWrapper'>
+				<div>${weatherState} </div>
+				<div class='windHolder'>${windInfo}</div>
+			</div>
+			<div class='iconWrapper'>
+				<img src='${weatherIcon}' class='weatherIcon'>
+			</div>
+				
+			
 		</div>
 		`;
 	});

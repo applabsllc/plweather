@@ -76,6 +76,7 @@ body{
 .weatherIcon{
 	width:40px;
 	height:40px;
+
 }
 
 .card{
@@ -85,24 +86,87 @@ body{
 	padding: 13px;
 	width:100%;
 	box-sizing: border-box;
+	display: flex;
+}
+
+
+.dateWrapper{
+	display: inline-block;
+	text-align: center;
+	padding: 0px 10px 0px 0px;
+	-ms-flex: 1;  /* IE 10 */  
+  flex: 1;
+	vertical-align: top;
+}
+
+.tempWrapper{
+	display: inline-block;
+	text-align: center;
+	padding: 0px 10px 0px 0px;
+	-ms-flex: 1;  /* IE 10 */  
+  flex: 1;
+	vertical-align: top;
+}
+
+.weatherWrapper{
+	display: inline-block;
+	text-align: center;
+	padding: 0px 10px 0px 0px;
+	-ms-flex: 1;  /* IE 10 */  
+  flex: 1;
+	vertical-align: top;
+}
+
+.dayHolder{
+	font-weight:bold;
+}
+
+.dateHolder{
+	font-size:50%;
+	margin-top: 5px;
+	font-style: italic;
+}
+
+.iconWrapper{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.windHolder{
+	font-size:50%;
 }
 
 @media (min-width: 350px) {
-	.mainContainer{
-		background:red;
-	}
 	.container{
 		margin:0px;
 		padding:20px;
-	}		
-	.searchContainer{
-			
 	}
 	
-	.resultContainer{
+	.card{
+		flex-wrap: wrap;
+		display: inline-block;
+		padding: 10px;
+		margin: 10px;
+		width: 140px;
+		border-radius: 8px;
+	}
+	
+	.dateWrapper{
+		display: block;
+		text-align: left;
 		
 	}
-	.forecastContainer{
+	.tempWrapper{
+		display: block;
+		width: auto;
+		text-align: right;
 	}
-	
+	.weatherWrapper{
+		display: block;
+		width: auto;
+		text-align: left;
+	}
+	.iconWrapper{
+		display: block;
+	}
 }
