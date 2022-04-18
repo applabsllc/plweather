@@ -12,8 +12,10 @@ const daysOfWeek = [
 
 const windDirections = (deg) => {
 	
-/* this function takes a degree [0 -> 360] and converts 
-it to a direction such as N, E, SE, NW, etc. */
+/* 
+this function takes a degree [0 -> 360] and converts 
+it to a direction such as N, E, SE, NW, etc. 
+*/
 
 let winDir = "";
 
@@ -96,24 +98,26 @@ const searchCity = (str) => {// search for city using API call
 		// 1) fetch general city info
 		fetch('https://api.openweathermap.org/data/2.5/weather?q='+str+'&appid='+apiKey)
 		.then((response) => {
-			  //check to see if response is OK or 404
+				/*
+				Check to see if response is OK or 404.
+				Sometimes API returns 404 in header and others returns object with error code. This
+				first check is to see if response is 404:
+				*/
 			  if (response.ok) {
 				return response.json();
 			  }
 			  clearAll("404 response - City not found");
 			})
 		.then(cityData => {
-			if(typeof cityData !== 'undefined' && typeof cityData.sys !== 'undefined' && cityData.sys.type > 0 && cityData.cod !== "404"){//check to see if result found a city
+			if(typeof cityData !== 'undefined' && typeof cityData.sys !== 'undefined' && cityData.sys.type > 0 && cityData.cod !== "404"){ //Second check to see if result is object and with a city (sys.type)
 				
 				let lat = cityData.coord.lat;
 				let lng = cityData.coord.lon;
 				
-				handleCityResponse(cityData);
-				
 				// 2) then fetch forecast
 				fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lng+'&appid='+apiKey+'&units=imperial ')
 				.then(response => response.json())
-				.then(forecast => handleForecastResponse(forecast));
+				.then(forecast => handleForecastResponse(cityData.name , forecast));
 				
 			}else clearAll();
 		})
@@ -123,15 +127,13 @@ const searchCity = (str) => {// search for city using API call
 	
 }
 
-const handleCityResponse = (data) => {
-		let currentCity = data.name;
-		setCityTitle(currentCity);
-}
-
-const handleForecastResponse = (data) => {
-	if(data.daily.length){//check to see if forecast available for that city
-		setForecast(buildForecast(data.daily));
-	}else setForecast("");//else set forecast to empty
+const handleForecastResponse = (city, forecast) => {
+	
+	setCityTitle(city); //set name of city
+	
+	if(forecast.daily.length){ //check to see if forecast available for that city
+		setForecast(buildForecast(forecast.daily)); //set forcast based on daily array
+	}else setForecast(""); //else set forecast to empty
 }
 
 const buildForecast = (list) => {
