@@ -10,6 +10,68 @@ const daysOfWeek = [
 	"Sat",
 	];
 
+
+
+const windDirections = (deg) => {
+
+let winDir = "";
+
+	switch(true) {
+	  case deg > 348.75 || deg <= 11.25:
+		winDir = "N";
+		break;
+	  case deg > 11.25 && deg <= 33.75:
+		winDir = "NNE";
+		break;
+	  case deg > 33.75 && deg <= 56.25:
+		winDir = "NE";
+		break;
+		case deg > 56.25 && deg <= 78.75:
+		winDir = "ENE";
+		break;
+		case deg > 78.75 && deg <= 101.25:
+		winDir = "E";
+		break;
+		case deg > 101.25 && deg <= 123.75:
+		winDir = "ESE";
+		break;
+		case deg > 123.75 && deg <= 146.25:
+		winDir = "SE";
+		break;
+		case deg > 146.25 && deg <= 168.75:
+		winDir = "SSE";
+		break;
+		case deg > 168.75 && deg <= 191.25:
+		winDir = "S";
+		break;
+		case deg > 191.25 && deg <= 213.75:
+		winDir = "SSW";
+		break;
+		case deg > 213.75 && deg <= 236.25:
+		winDir = "SW";
+		break;
+		case deg > 236.25 && deg <= 258.75:
+		winDir = "WSW";
+		break;
+		case deg > 258.75 && deg <= 281.25:
+		winDir = "W";
+		break;
+		case deg > 281.25 && deg <= 303.75:
+		winDir = "WNW";
+		break;
+		case deg > 303.75 && deg <= 326.25:
+		winDir = "NW";
+		break;
+		case deg > 326.25 && deg <= 348.75:
+		winDir = "NNW";
+		break;
+	}
+	
+	return winDir;
+
+}
+
+
 const setCityTitle = (title) => {
 	document.getElementById('cityTitle').innerHTML = title;
 }
@@ -49,7 +111,7 @@ const searchCity = (str) => {
 				handleCityResponse(cityData);
 				
 				// 2) then fetch forecast
-				fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lng+'&appid='+apiKey)
+				fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lng+'&appid='+apiKey+'&units=imperial ')
 				.then(response => response.json())
 				.then(forecast => handleForecastResponse(forecast));
 				
@@ -81,10 +143,36 @@ const buildForecast = (list) => {
 	const d = new Date();
 	
 	list.map((day,i) => {
-		let currentDayOfWeek = d.getDay()+i < 7?d.getDay()+i > 6:0;
+		var d = new Date();
+		d.setDate(d.getDate() + i); //number  of days to add to current date
+		
+		//get day of week
+		let currentDayOfWeek = daysOfWeek[d.getDay()];//get current num for day [0 Sun -> 6 Sat]
+		
+		//build date
+		let currentDate = d.getDate()+' '+(d.getMonth() + 1)+' '+d.getFullYear();
+		
+		//temperature
+		let temp = day.temp.day;
+		
+		//weather state
+		let weatherState = day.weather[0] ? day.weather[0].main : "N/A";
+		
+		//wind data
+		let wind = 'Wind Speed: ' +day.wind_speed+ ' ' + windDirections(day.wind_deg);
+		
+		//icon
+		let weatherIcon = day.weather[0] ? 'http://openweathermap.org/img/wn/'+day.weather[0].icon+'@2x.png' : "N/A";
 		
 		html += `
-		<div class='card'>Today</div>
+		<div class='card'>
+			${currentDayOfWeek}
+			${currentDate}
+			${temp}
+			${weatherState}
+			${wind}
+			<img src='${weatherIcon}' class='weatherIcon'>
+		</div>
 		`;
 	});
 		
