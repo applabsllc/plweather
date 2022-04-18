@@ -127,16 +127,28 @@ body{
 	font-style: italic;
 }
 
-.iconWrapper{
+.iconWrapper {
 	display: inline-block;
 	vertical-align: top;
 }
 
-.windHolder{
+.windHolder {
 	font-size:50%;
 }
 
-@media (min-width: 350px) {
+.windIcon{
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	vertical-align:middle;
+}
+
+.windInfo {
+	vertical-align:middle;
+	
+}
+
+@media (min-width: 390px) {
 	.container{
 		margin:0px;
 		padding:20px;
@@ -149,24 +161,24 @@ body{
 		margin: 10px;
 		width: 140px;
 		border-radius: 8px;
+		filter: drop-shadow( 0.4rem 0.4rem 0.3rem rgba(0, 0, 0, 0.4) );
 	}
 	
 	.dateWrapper{
-		display: block;
 		text-align: left;
-		
+		font-size: 120%;
 	}
 	.tempWrapper{
-		display: block;
 		width: auto;
-		text-align: right;
+		float: right;
+		vertical-align: top;
+		padding: 0px;
 	}
 	.weatherWrapper{
-		display: block;
+		margin-top: 12px;
 		width: auto;
 		text-align: left;
 	}
 	.iconWrapper{
-		display: block;
 	}
 }

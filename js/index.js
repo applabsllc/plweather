@@ -155,11 +155,16 @@ const buildForecast = (list) => {
 		//weather state
 		let weatherState = day.weather[0] ? day.weather[0].main : "N/A";
 		
+		//wind icon
+		let windIcon = '../images/wind.png';
+
 		//wind data
-		let windInfo = 'Wind: ' +windDirections(day.wind_deg)+ ' '+ parseInt(day.wind_speed) + 'mph ' ;
+		let windInfo = windDirections(day.wind_deg)+ ' '+ parseInt(day.wind_speed) + 'mph ' ;
 		
 		//icon
 		let weatherIcon = day.weather[0] ? 'http://openweathermap.org/img/wn/'+day.weather[0].icon+'@2x.png' : "N/A";
+		
+		
 		
 		html += `
 		<div class='card'>
@@ -168,11 +173,14 @@ const buildForecast = (list) => {
 				<div class='dateHolder'>${currentDate}</div>
 			</div>
 			<div class='tempWrapper'>
-			${temp}&deg; 
+				${temp}&deg; 
 			</div>
 			<div class='weatherWrapper'>
 				<div>${weatherState} </div>
-				<div class='windHolder'>${windInfo}</div>
+				<div class='windHolder'>
+					<img src='${windIcon}' class='windIcon'>
+					<span class='windInfo'> ${windInfo}</span>
+				</div>
 			</div>
 			<div class='iconWrapper'>
 				<img src='${weatherIcon}' class='weatherIcon'>
