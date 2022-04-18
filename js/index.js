@@ -10,9 +10,10 @@ const daysOfWeek = [
 	"Sat",
 	];
 
-
-
 const windDirections = (deg) => {
+	
+/* this function takes a degree [0 -> 360] and converts 
+it to a direction such as N, E, SE, NW, etc. */
 
 let winDir = "";
 
@@ -68,26 +69,25 @@ let winDir = "";
 	}
 	
 	return winDir ? winDir : "N/A";
-
 }
 
 
-const setCityTitle = (title) => {
+const setCityTitle = (title) => { //set city in title
 	document.getElementById('cityTitle').innerHTML = title;
 }
 
-const setForecast = (html) => {
+const setForecast = (html) => { //set html to forecast div
 	document.getElementById('forecastContainer').innerHTML = html;
 }
 
-const clearAll = (err) => {
+const clearAll = (err) => { //clear city and forecast
 		setCityTitle("");
-		setForecast([]);	
+		setForecast("");	
 		
 		if(err)console.log(err);
 }
 
-const searchCity = (str) => {
+const searchCity = (str) => {// search for city using API call
 	
 	clearAll();//clear previus results for new call
 	
@@ -96,6 +96,7 @@ const searchCity = (str) => {
 		// 1) fetch general city info
 		fetch('https://api.openweathermap.org/data/2.5/weather?q='+str+'&appid='+apiKey)
 		.then((response) => {
+			  //check to see if response is OK or 404
 			  if (response.ok) {
 				return response.json();
 			  }
@@ -103,7 +104,7 @@ const searchCity = (str) => {
 			})
 		.then(cityData => {
 			if(typeof cityData !== 'undefined' && typeof cityData.sys !== 'undefined' && cityData.sys.type > 0 && cityData.cod !== "404"){//check to see if result found a city
-
+				
 				let lat = cityData.coord.lat;
 				let lng = cityData.coord.lon;
 				
@@ -116,7 +117,7 @@ const searchCity = (str) => {
 				
 			}else clearAll();
 		})
-		.catch((err) => clearAll(err));
+		.catch((err) => clearAll(err));//catch for general fetch error
 		
 	}//end if
 	
@@ -128,29 +129,28 @@ const handleCityResponse = (data) => {
 }
 
 const handleForecastResponse = (data) => {
-	console.log("forecast:",data);
 	if(data.daily.length){//check to see if forecast available for that city
 		setForecast(buildForecast(data.daily));
-	}else setForecast("");
+	}else setForecast("");//else set forecast to empty
 }
 
 const buildForecast = (list) => {
 	
 	let html = ``;
-	const d = new Date();
 	
 	list.map((day,i) => {
-		var d = new Date();
+		
+		const d = new Date();//get current date
 		d.setDate(d.getDate() + i); //number  of days to add to current date
 		
 		//get day of week
 		let currentDayOfWeek = daysOfWeek[d.getDay()];//get current num for day [0 Sun -> 6 Sat]
 		
-		//build date
-		let currentDate = d.getDate()+'/'+(d.getMonth() + 1)+'/'+d.getFullYear();
+		//build date string
+		let currentDate = (d.getMonth() + 1)+'/'+d.getDate()+'/'+d.getFullYear();
 		
 		//temperature
-		let temp = day.temp.day;
+		let temp = parseInt(day.temp.day);
 		
 		//weather state
 		let weatherState = day.weather[0] ? day.weather[0].main : "N/A";
@@ -161,10 +161,8 @@ const buildForecast = (list) => {
 		//wind data
 		let windInfo = windDirections(day.wind_deg)+ ' '+ parseInt(day.wind_speed) + 'mph ' ;
 		
-		//icon
+		//weather icon from API
 		let weatherIcon = day.weather[0] ? 'http://openweathermap.org/img/wn/'+day.weather[0].icon+'@2x.png' : "N/A";
-		
-		
 		
 		html += `
 		<div class='card'>
@@ -178,7 +176,7 @@ const buildForecast = (list) => {
 			<div class='weatherWrapper'>
 				<div>${weatherState} </div>
 				<div class='windHolder'>
-					<img src='${windIcon}' class='windIcon'>
+					<img src='${windIcon}' class='windIcon' />
 					<span class='windInfo'> ${windInfo}</span>
 				</div>
 			</div>
