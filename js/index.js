@@ -18,22 +18,29 @@ const setForecast = (html) => {
 	document.getElementById('forecastContainer').innerHTML = html;
 }
 
-const clearAll = () => {
+const clearAll = (err) => {
 		setCityTitle("");
-		buildForecast([]);	
+		setForecast([]);	
+		
+		if(err)console.log(err);
 }
 
 const searchCity = (str) => {
 	
-	if(str.length == 0)clearAll();
+	clearAll();
 	
 	if(str.length > 4){
 	
 		// 1) fetch general city info
 		fetch('https://api.openweathermap.org/data/2.5/weather?q='+str+'&appid='+apiKey)
-		.then(response => response.json())
+		.then((response) => {
+			  if (response.ok) {
+				return response.json();
+			  }
+			  clearAll("404 response - City not found");
+			})
 		.then(cityData => {
-			if(typeof cityData.sys !== 'undefined' && cityData.sys.type === 2 && cityData.cod !== "404"){//check to see if result found a city
+			if(typeof cityData !== 'undefined' && typeof cityData.sys !== 'undefined' && cityData.sys.type > 0 && cityData.cod !== "404"){//check to see if result found a city
 	
 				let cityId = cityData.id;
 				let lat = cityData.coord.lat;
@@ -47,7 +54,8 @@ const searchCity = (str) => {
 				.then(forecast => handleForecastResponse(forecast));
 				
 			}else clearAll();
-		});
+		})
+		.catch((err) => clearAll(err));
 		
 		
 		
@@ -64,7 +72,7 @@ const handleForecastResponse = (data) => {
 	console.log("forecast:",data);
 	if(data.daily.length){//check to see if forecast available for that city
 		setForecast(buildForecast(data.daily));
-	}
+	}else setForecast("");
 }
 
 const buildForecast = (list) => {
@@ -79,5 +87,6 @@ const buildForecast = (list) => {
 		<div class='card'>Today</div>
 		`;
 	});
-	
+		
+	return html;
 }
