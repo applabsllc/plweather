@@ -17,57 +17,57 @@ const windDirections = (deg) => {
 let winDir = "";
 
 	switch(true) {
-	  case deg > 348.75 || deg <= 11.25:
-		winDir = "N";
-		break;
-	  case deg > 11.25 && deg <= 33.75:
-		winDir = "NNE";
-		break;
-	  case deg > 33.75 && deg <= 56.25:
-		winDir = "NE";
-		break;
+		case deg > 348.75 || deg <= 11.25:
+			winDir = "N";
+			break;
+		case deg > 11.25 && deg <= 33.75:
+			winDir = "NNE";
+			break;
+		case deg > 33.75 && deg <= 56.25:
+			winDir = "NE";
+			break;
 		case deg > 56.25 && deg <= 78.75:
-		winDir = "ENE";
-		break;
+			winDir = "ENE";
+			break;
 		case deg > 78.75 && deg <= 101.25:
-		winDir = "E";
-		break;
+			winDir = "E";
+			break;
 		case deg > 101.25 && deg <= 123.75:
-		winDir = "ESE";
-		break;
+			winDir = "ESE";
+			break;
 		case deg > 123.75 && deg <= 146.25:
-		winDir = "SE";
-		break;
+			winDir = "SE";
+			break;
 		case deg > 146.25 && deg <= 168.75:
-		winDir = "SSE";
-		break;
+			winDir = "SSE";
+			break;
 		case deg > 168.75 && deg <= 191.25:
-		winDir = "S";
-		break;
+			winDir = "S";
+			break;
 		case deg > 191.25 && deg <= 213.75:
-		winDir = "SSW";
-		break;
+			winDir = "SSW";
+			break;
 		case deg > 213.75 && deg <= 236.25:
-		winDir = "SW";
-		break;
+			winDir = "SW";
+			break;
 		case deg > 236.25 && deg <= 258.75:
-		winDir = "WSW";
-		break;
+			winDir = "WSW";
+			break;
 		case deg > 258.75 && deg <= 281.25:
-		winDir = "W";
-		break;
+			winDir = "W";
+			break;
 		case deg > 281.25 && deg <= 303.75:
-		winDir = "WNW";
-		break;
+			winDir = "WNW";
+			break;
 		case deg > 303.75 && deg <= 326.25:
-		winDir = "NW";
-		break;
+			winDir = "NW";
+			break;
 		case deg > 326.25 && deg <= 348.75:
-		winDir = "NNW";
-		break;
+			winDir = "NNW";
+			break;
 	}
 	
-	return winDir;
+	return winDir ? winDir : "N/A";
 
 }
 
@@ -89,7 +89,7 @@ const clearAll = (err) => {
 
 const searchCity = (str) => {
 	
-	clearAll();
+	clearAll();//clear previus results for new call
 	
 	if(str.length > 4){
 	
@@ -103,8 +103,7 @@ const searchCity = (str) => {
 			})
 		.then(cityData => {
 			if(typeof cityData !== 'undefined' && typeof cityData.sys !== 'undefined' && cityData.sys.type > 0 && cityData.cod !== "404"){//check to see if result found a city
-	
-				let cityId = cityData.id;
+
 				let lat = cityData.coord.lat;
 				let lng = cityData.coord.lon;
 				
@@ -119,9 +118,7 @@ const searchCity = (str) => {
 		})
 		.catch((err) => clearAll(err));
 		
-		
-		
-	}
+	}//end if
 	
 }
 
@@ -159,7 +156,7 @@ const buildForecast = (list) => {
 		let weatherState = day.weather[0] ? day.weather[0].main : "N/A";
 		
 		//wind data
-		let wind = 'Wind Speed: ' +day.wind_speed+ ' ' + windDirections(day.wind_deg);
+		let windInfo = 'Wind Speed: ' +day.wind_speed+ 'mph @ ' + windDirections(day.wind_deg);
 		
 		//icon
 		let weatherIcon = day.weather[0] ? 'http://openweathermap.org/img/wn/'+day.weather[0].icon+'@2x.png' : "N/A";
@@ -170,7 +167,7 @@ const buildForecast = (list) => {
 			${currentDate}
 			${temp}
 			${weatherState}
-			${wind}
+			${windInfo}
 			<img src='${weatherIcon}' class='weatherIcon'>
 		</div>
 		`;
