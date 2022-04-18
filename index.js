@@ -1,22 +1,20 @@
 var http = require('http');
 var fs = require('fs');
 
-var mimeTypes = {
+var mimeTypes = { //types of files we could possibly load
         'html': 'text/html',
         'js': 'text/javascript',
         'css': 'text/css',
         'json': 'application/json',
         'png': 'image/png',
         'ico': 'image/icon',
-        'jpg': 'image/jpg',
-        'gif': 'image/gif',
         'svg': 'image/svg+xml',
         'woff': 'application/font-woff',
         'ttf': 'application/font-ttf',
         'otf': 'application/font-otf',
     };
 	
-function getExtensionFromFile(fn){
+function getExtensionFromFile(fn){ //get extention from file
 	let split = fn.split(".");
 	return split[split.length-1];	
 }
@@ -24,10 +22,11 @@ function getExtensionFromFile(fn){
 http.createServer((request, response) => {
 
     let filePath = request.url;
-	if (filePath == '/') filePath = '/html/index.html';//default page load
+	if (filePath == '/') filePath = '/index.html'; // default page load
 	
 	let ext = getExtensionFromFile(filePath);
- 
+	
+	// if found, serve file
     fs.readFile("."+filePath, (error, content) => {
         if (error) {
                 response.writeHead(500);
