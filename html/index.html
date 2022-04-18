@@ -32,17 +32,13 @@
 <body>
 	<div class="mainContainer">
 		<div class="container searchContainer">
-			<input type="text" class="searchbar" id="searchbar" placeholder="Search City..." onkeyup="">
+			<input type="text" class="searchbar" id="searchbar" placeholder="Search City..." onkeyup="searchCity(this.value)">
 		</div>
 		<div class="container resultContainer" id="resultContainer">
-			<div class="resultButton">Kansas City</div>
+			<div class="cityTitle" id="cityTitle"></div>
 		</div>
 		<div class="container forecastContainer" id="forecastContainer">
-			<div class="card">Monday</div>
-			<div class="card">Tuesday</div>
-			<div class="card">Wednesday</div>
-			<div class="card">Thursday</div>
-			<div class="card">Friday</div>
+			
 		</div>
 	</div>
 </body>
