@@ -158,7 +158,7 @@ const buildForecast = (list) => {
 		let weatherState = day.weather[0] ? day.weather[0].main : "N/A";
 		
 		//wind icon
-		let windIcon = '/images/wind.png';
+		let windIcon = './images/wind.png';
 
 		//wind data
 		let windInfo = windDirections(day.wind_deg)+ ' '+ parseInt(day.wind_speed) + 'mph ' ;
