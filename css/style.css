@@ -12,16 +12,16 @@
 
 }
 
-@font-face {
-  font-family: 'Open Sans';
-  font-style: light;
-  font-weight: 300;
-  src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+@font-face { /* default to this font if error on font load */
+	font-family: 'Open Sans';
+	font-style: light;
+	font-weight: 300;
+	src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
 
 html{
-	background: rgb(191,190,191);
-	background: linear-gradient(48deg, rgba(191,190,191,1) 4%, rgba(235,236,251,1) 38%);
+	background: rgb(124,135,167);
+	background: linear-gradient(50deg, rgba(124,135,167,1) 10%, rgba(208,210,241,1) 40%);
 	font-family: 'Purista', 'Open Sans', sans-serif;
 	min-height:100vh;
 	margin:0px;
@@ -52,11 +52,15 @@ body{
 	margin-top:30px;
 }
 
+.logo {
+	width: 200px;
+	height: 106px;
+	padding: 10px;
+}
 .searchbar{
-	font-size: 120%; 
+	font-size: 130%; 
 	width: 100%;
-	max-width:500px;
-	padding: 0.5em 0.5em;
+	padding: 0.7em 0.7em;
     display: inline-block;
     -webkit-box-shadow: inset 0 1px 3px #ddd;
     box-shadow: inset 0 1px 3px #ddd;
@@ -68,15 +72,17 @@ body{
 }
 
 .cityTitle{
-	font-size:130%;
+	font-size:150%;
 	font-weight:bold;
-	padding-left: 10px;
+	padding-left: 20px;
 }
 
 .weatherIcon{
 	width:40px;
 	height:40px;
-
+	background: #ffffff; /* made bg white because some icons get lost in gray */
+	border-radius: 8px;
+	filter: drop-shadow( 0.2rem 0.1rem 0.1rem rgba(0, 0, 0, 0.2) );
 }
 
 .card{
@@ -90,12 +96,17 @@ body{
 }
 
 
+.logoWrapper{
+	width: 100%;
+	text-align: center;
+}
+
 .dateWrapper{
 	display: inline-block;
 	text-align: center;
 	padding: 0px 10px 0px 0px;
 	-ms-flex: 1;  /* IE 10 */  
-  flex: 1;
+    flex: 1;
 	vertical-align: top;
 }
 
@@ -113,7 +124,7 @@ body{
 	text-align: center;
 	padding: 0px 10px 0px 0px;
 	-ms-flex: 1;  /* IE 10 */  
-  flex: 1;
+	flex: 1;
 	vertical-align: top;
 }
 
@@ -122,7 +133,7 @@ body{
 }
 
 .dateHolder{
-	font-size:50%;
+	font-size:40%;
 	margin-top: 5px;
 	font-style: italic;
 }
@@ -150,10 +161,20 @@ body{
 
 @media (min-width: 390px) {
 	.container{
-		margin:0px;
-		padding:20px;
+		margin: 0px;
+		padding: 20px;
 	}
-	
+	.logo {
+		width: 200px;
+		height: 106px;
+	}
+	.logoWrapper{
+		text-align: left;
+	}
+	.searchbar{
+		width: 60vw;
+		max-width: 600px;
+	}
 	.card{
 		flex-wrap: wrap;
 		display: inline-block;
@@ -182,9 +203,5 @@ body{
 	.iconWrapper{
 		float: right;
 	}
-	.weatherIcon{
-		background: #ffffff; /* made bg white because some icons get lost in gray */
-		border-radius: 8px;
-		filter: drop-shadow( 0.2rem 0.1rem 0.1rem rgba(0, 0, 0, 0.2) );
-	}
+	
 }
