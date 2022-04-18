@@ -1,4 +1,5 @@
 
+/* fonts for website */
 @font-face {
     font-family: 'Purista';
     src: url('fonts/PuristaMedium.eot');
@@ -19,6 +20,7 @@
 	src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
 }
 
+/* begin classes for tags */
 html{
 	background: rgb(124,135,167);
 	background: linear-gradient(50deg, rgba(124,135,167,1) 10%, rgba(208,210,241,1) 40%);
@@ -38,10 +40,10 @@ body{
 	padding:0px;
 }
 
-
 .resultContainer{
 	margin-top:30px;
 }
+
 .forecastContainer{
 	margin-top:30px;
 }
@@ -51,6 +53,7 @@ body{
 	height: 106px;
 	padding: 10px;
 }
+
 .searchbar{
 	font-size: 130%; 
 	width: 100%;
@@ -71,14 +74,6 @@ body{
 	padding-left: 20px;
 }
 
-.weatherIcon{
-	width:40px;
-	height:40px;
-	background: #ffffff; /* made bg white because some icons get lost in gray */
-	border-radius: 8px;
-	filter: drop-shadow( 0.2rem 0.1rem 0.1rem rgba(0, 0, 0, 0.2) );
-}
-
 .card{
 	display: inline-block;
 	border: 1px solid #dfdfdf;
@@ -89,10 +84,14 @@ body{
 	display: flex;
 }
 
+.dayHolder{
+	font-weight:bold;
+}
 
-.logoWrapper{
-	width: 100%;
-	text-align: center;
+.dateHolder{
+	font-size:40%;
+	margin-top: 5px;
+	font-style: italic;
 }
 
 .dateWrapper{
@@ -102,6 +101,11 @@ body{
 	-ms-flex: 1;  /* IE 10 */  
     flex: 1;
 	vertical-align: top;
+}
+
+.logoWrapper{
+	width: 100%;
+	text-align: center;
 }
 
 .tempWrapper{
@@ -122,19 +126,17 @@ body{
 	vertical-align: top;
 }
 
-.dayHolder{
-	font-weight:bold;
-}
-
-.dateHolder{
-	font-size:40%;
-	margin-top: 5px;
-	font-style: italic;
-}
-
 .iconWrapper {
 	display: inline-block;
 	vertical-align: top;
+}
+
+.weatherIcon{
+	width:40px;
+	height:40px;
+	background: #ffffff; /* made bg white because some icons get lost in gray */
+	border-radius: 8px;
+	filter: drop-shadow( 0.2rem 0.1rem 0.1rem rgba(0, 0, 0, 0.2) );
 }
 
 .windHolder {
@@ -150,13 +152,26 @@ body{
 
 .windInfo {
 	vertical-align:middle;
-	
 }
 
+/* modified classes for larger view ( 390px or larger ) */
 @media (min-width: 390px) {
+	.card{
+		flex-wrap: wrap;
+		display: inline-block;
+		padding: 10px;
+		margin: 10px;
+		width: 140px;
+		border-radius: 8px;
+		filter: drop-shadow( 0.4rem 0.4rem 0.3rem rgba(0, 0, 0, 0.4) );
+	}
 	.container{
 		margin: 0px;
 		padding: 20px;
+	}
+	.dateWrapper{
+		text-align: left;
+		font-size: 120%;
 	}
 	.logo {
 		width: 200px;
@@ -169,20 +184,7 @@ body{
 		width: 60vw;
 		max-width: 600px;
 	}
-	.card{
-		flex-wrap: wrap;
-		display: inline-block;
-		padding: 10px;
-		margin: 10px;
-		width: 140px;
-		border-radius: 8px;
-		filter: drop-shadow( 0.4rem 0.4rem 0.3rem rgba(0, 0, 0, 0.4) );
-	}
 	
-	.dateWrapper{
-		text-align: left;
-		font-size: 120%;
-	}
 	.tempWrapper{
 		width: auto;
 		float: right;
@@ -197,5 +199,4 @@ body{
 	.iconWrapper{
 		float: right;
 	}
-	
 }
