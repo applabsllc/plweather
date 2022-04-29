@@ -1,5 +1,5 @@
 
-const apiKey = "086c5a0b75d6020a1259dc06decc77cf";
+const apiKey = "793aa500dda04aacef0c586d685b79ba";
 const daysOfWeek = [
 	"Sun",
 	"Mon",
@@ -115,7 +115,7 @@ const searchCity = (str) => {// search for city using API call
 				let lng = cityData.coord.lon;
 				
 				// 2) then fetch forecast
-				fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lng+'&appid='+apiKey+'&units=imperial ')
+				fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lng+'&appid='+apiKey+'&units=imperial')
 				.then(response => response.json())
 				.then(forecast => handleForecastResponse(cityData.name , forecast));
 				
