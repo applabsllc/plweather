@@ -6,6 +6,8 @@ The project is built purely in HTML, JS, and CSS, using no third-party or extern
 
 Demo Here: http://applabsllc.com/plweather/
 
+This project was a code assessment for Animal Farm. The assessment is meant to show skills in HTML/JS/CSS even though position was for React Development (¯\_(ツ)_/¯) .
+
 ## Installation
 
 Download or Clone the repository then navigate to the project folder and execute the following command:
